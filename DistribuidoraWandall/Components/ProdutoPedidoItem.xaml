@@ -29,7 +29,7 @@
                 TextSearch.TextPath="Nome"
                 ItemsSource="{Binding Items}"
                 SelectedItem="{Binding SelectedItem}"
-                SelectedValue="{Binding SelectedValue}" Grid.Column="0" Grid.Row="1">
+                SelectedValue="{Binding SelectedValue}" Grid.Column="0" Grid.Row="1" LostFocus="Produto_LostFocus">
             <dotNetKitControls:AutoCompleteComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -41,8 +41,8 @@
                 </DataTemplate>
             </dotNetKitControls:AutoCompleteComboBox.ItemTemplate>
         </dotNetKitControls:AutoCompleteComboBox>
-        <TextBox Name="Quantidade" Grid.Column="1" Grid.Row="1"></TextBox>
-        <TextBox Name="ValorUnitario" Grid.Column="2" Grid.Row="1"></TextBox>
+        <TextBox Name="Quantidade" Grid.Column="1" Grid.Row="1" TextChanged="Quantidade_TextChanged"></TextBox>
+        <TextBox Name="ValorUnitario" Grid.Column="2" Grid.Row="1" TextChanged="ValorUnitario_TextChanged"></TextBox>
         <Grid Grid.Row="1" Grid.Column="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.3*" />

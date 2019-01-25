@@ -6,16 +6,27 @@ namespace DistribuidoraWandall.Controllers
 {
     public class ProdutosController
     {
-       
+        private static ProdutosController _instance;
+        public static ProdutosController Instance => _instance ?? new ProdutosController();
+
+        private static List<Produto> _produtos;
+
+        private ProdutosController()
+        {
+
+        }
+
         public List<Produto> Buscar()
         {
-            using (var db = new DB.DBEntities())
-            {
-                var produtos = db.Produtos
-                    .FindAll().OrderByDescending(x => x.Id).ToList();
-                produtos.ForEach(x => x.Nome = x.Nome + $" - ({x.Id})");
-                return produtos;
-            }
+            if (_produtos == null)
+                using (var db = new DB.DBEntities())
+                {
+                    var produtos = db.Produtos
+                        .FindAll().OrderByDescending(x => x.Id).ToList();
+                    produtos.ForEach(x => x.Nome = x.Nome + $" - ({x.Id})");
+                    _produtos = produtos;
+                }
+            return _produtos;
         }
         public object Apagar(int id)
         {

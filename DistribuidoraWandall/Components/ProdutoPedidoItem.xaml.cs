@@ -12,8 +12,7 @@ namespace DistribuidoraWandall.Components
     /// </summary>
     public partial class ProdutoPedidoItem : UserControl
     {
-        sealed class ViewModel
-         : INotifyPropertyChanged
+        sealed class ViewModel: INotifyPropertyChanged
         {
             #region INotifyPropertyChanged
             public event PropertyChangedEventHandler PropertyChanged;
@@ -24,14 +23,13 @@ namespace DistribuidoraWandall.Components
 
                 field = value;
 
-                var h = PropertyChanged;
-                if (h != null) h(this, new PropertyChangedEventArgs(propertyName));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
             #endregion
 
             public IReadOnlyList<Produto> Items
             {
-                get { return new ProdutosController().Buscar(); }
+                get { return ProdutosController.Instance.Buscar(); }
             }
 
             Produto selectedItem;
@@ -52,6 +50,22 @@ namespace DistribuidoraWandall.Components
         {
             InitializeComponent();
             gridProdutos.DataContext = new ViewModel();
+        }
+
+        private void Quantidade_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ValorUnitario_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Produto_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var viewModel = (ViewModel)gridProdutos.DataContext;
+            ValorUnitario.Text = viewModel.SelectedItem?.ValorVenda.ToString();
         }
     }
 }
