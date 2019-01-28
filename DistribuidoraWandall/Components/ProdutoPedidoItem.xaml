@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:DistribuidoraWandall.Components"
         xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
              mc:Ignorable="d" 
-             d:DesignHeight="45" d:DesignWidth="450">
+             Height="45" Width="500">
     <Grid Name="gridProdutos">
         <Grid.RowDefinitions>
             <RowDefinition Height="15" />
@@ -22,24 +22,13 @@
         <TextBlock Grid.Row="0" Grid.Column="1">Qtde.</TextBlock>
         <TextBlock Grid.Row="0" Grid.Column="2">Valor</TextBlock>
         <TextBlock Grid.Row="0" Grid.Column="3">Total</TextBlock>
-
         <dotNetKitControls:AutoCompleteComboBox
                 Name="Produto"
                 SelectedValuePath="Id"
                 TextSearch.TextPath="Nome"
+                DisplayMemberPath="Nome"
                 ItemsSource="{Binding Items}"
-                SelectedItem="{Binding SelectedItem}"
-                SelectedValue="{Binding SelectedValue}" Grid.Column="0" Grid.Row="1" LostFocus="Produto_LostFocus">
-            <dotNetKitControls:AutoCompleteComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Nome}" FontWeight="Bold" />
-                        <TextBlock>
-                            Some descriptions. Id = <Run Text="{Binding Id, Mode=OneTime}" />.
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </dotNetKitControls:AutoCompleteComboBox.ItemTemplate>
+                SelectedItem="{Binding SelectedItem}" Grid.Column="0" Grid.Row="1" LostFocus="Produto_LostFocus">
         </dotNetKitControls:AutoCompleteComboBox>
         <TextBox Name="Quantidade" Grid.Column="1" Grid.Row="1" TextChanged="Quantidade_TextChanged"></TextBox>
         <TextBox Name="ValorUnitario" Grid.Column="2" Grid.Row="1" TextChanged="ValorUnitario_TextChanged"></TextBox>
@@ -49,7 +38,14 @@
                 <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
             <TextBlock >R$</TextBlock>
-            <TextBlock Name="ValorTotal" Grid.Row="1" Grid.Column="3" TextAlignment="Right">0,00</TextBlock>
+            <TextBlock Name="ValorTotal" Grid.Row="1" Grid.Column="3" TextAlignment="Right">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} + {1}">
+                        <Binding Path="Name" />
+                        <Binding Path="ID" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>

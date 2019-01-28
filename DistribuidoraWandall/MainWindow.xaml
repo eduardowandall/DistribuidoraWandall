@@ -21,9 +21,7 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <local:ProdutoPedidoItem>
-            
-        </local:ProdutoPedidoItem>
+    <Grid Name="gridProdutos" HorizontalAlignment="Left" VerticalAlignment="Top">
+       
     </Grid>
 </Window>

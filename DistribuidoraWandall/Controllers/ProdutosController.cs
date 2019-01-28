@@ -7,7 +7,15 @@ namespace DistribuidoraWandall.Controllers
     public class ProdutosController
     {
         private static ProdutosController _instance;
-        public static ProdutosController Instance => _instance ?? new ProdutosController();
+        public static ProdutosController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new ProdutosController();
+                return _instance;
+            }
+        }
 
         private static List<Produto> _produtos;
 
@@ -23,7 +31,6 @@ namespace DistribuidoraWandall.Controllers
                 {
                     var produtos = db.Produtos
                         .FindAll().OrderByDescending(x => x.Id).ToList();
-                    produtos.ForEach(x => x.Nome = x.Nome + $" - ({x.Id})");
                     _produtos = produtos;
                 }
             return _produtos;
