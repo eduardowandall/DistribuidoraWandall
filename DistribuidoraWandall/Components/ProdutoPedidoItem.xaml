@@ -6,11 +6,11 @@
              xmlns:local="clr-namespace:DistribuidoraWandall.Components"
         xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
              mc:Ignorable="d" 
-             Height="45" Width="500">
+             Height="50" Width="500">
     <Grid Name="gridProdutos">
         <Grid.RowDefinitions>
             <RowDefinition Height="15" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="23" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4.2*" />
@@ -28,24 +28,18 @@
                 TextSearch.TextPath="Nome"
                 DisplayMemberPath="Nome"
                 ItemsSource="{Binding Items}"
-                SelectedItem="{Binding SelectedItem}" Grid.Column="0" Grid.Row="1" LostFocus="Produto_LostFocus">
+                SelectedItem="{Binding SelectedItem}"
+                Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center">
         </dotNetKitControls:AutoCompleteComboBox>
-        <TextBox Name="Quantidade" Grid.Column="1" Grid.Row="1" TextChanged="Quantidade_TextChanged"></TextBox>
-        <TextBox Name="ValorUnitario" Grid.Column="2" Grid.Row="1" TextChanged="ValorUnitario_TextChanged"></TextBox>
+        <TextBox Name="Quantidade" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" Text="{Binding Quantidade}"></TextBox>
+        <TextBox Name="ValorUnitario" Grid.Column="2" Grid.Row="1" VerticalContentAlignment="Center" Text="{Binding ValorUnitario}"></TextBox>
         <Grid Grid.Row="1" Grid.Column="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.3*" />
                 <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
-            <TextBlock >R$</TextBlock>
-            <TextBlock Name="ValorTotal" Grid.Row="1" Grid.Column="3" TextAlignment="Right">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}{0} + {1}">
-                        <Binding Path="Name" />
-                        <Binding Path="ID" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
+            <TextBlock Grid.Column="0">R$</TextBlock>
+            <TextBlock Name="ValorTotal" Grid.Column="1" TextAlignment="Right" Text="{Binding Total}"></TextBlock>
         </Grid>
     </Grid>
 </UserControl>

@@ -14,7 +14,7 @@ namespace DistribuidoraWandall.Components
     public partial class ProdutoPedidoItem : UserControl
     {
         //TODO - Criar controllers para as classes(precisa criar prop pra mostrar e pesquisar Id e Nome. e prop para total)
-        sealed class PedidoProdutoViewModel: INotifyPropertyChanged
+        sealed class PedidoProdutoViewModel : INotifyPropertyChanged
         {
             #region INotifyPropertyChanged
             public event PropertyChangedEventHandler PropertyChanged;
@@ -40,39 +40,44 @@ namespace DistribuidoraWandall.Components
                 get { return selectedItem; }
                 set { SetField(ref selectedItem, value); }
             }
+
+            double quantidade = 1;
+            public double Quantidade
+            {
+                get { return quantidade; }
+                set { SetField(ref quantidade, value); }
+            }
+            double valorUnitario;
+            public double ValorUnitario
+            {
+                get { return valorUnitario; }
+                set { SetField(ref valorUnitario, value); }
+            }
+
+            public double Total => ValorUnitario * Quantidade;
         }
 
-        public bool IsEmpty { get { return selectedProduct == null; } }
+        public bool IsEmpty { get { return SelectedProduct == null && string.IsNullOrWhiteSpace(Produto.Text); } }
 
-        public delegate void EventHandler(object sender, EventArgs data);
         public event EventHandler Testezinho;
 
-        private PedidoProdutoViewModel ViewModel => (PedidoProdutoViewModel)gridProdutos.DataContext;
-        private Produto selectedProduct => ViewModel.SelectedItem;
+        private PedidoProdutoViewModel ViewModel { get; set; }
+        private Produto SelectedProduct => ViewModel.SelectedItem;
 
         public ProdutoPedidoItem()
         {
             InitializeComponent();
-            gridProdutos.DataContext = new PedidoProdutoViewModel();
+            ViewModel = new PedidoProdutoViewModel();
+            ViewModel.PropertyChanged += ProdutoPedidoItem_PropertyChanged;
+            gridProdutos.DataContext = ViewModel;
         }
 
-        private void Quantidade_TextChanged(object sender, TextChangedEventArgs e)
+        private void ProdutoPedidoItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (Testezinho != null)
-                Testezinho(this, e);
-        }
+            if (e.PropertyName == "SelectedItem")
+                ValorUnitario.Text = SelectedProduct?.ValorVenda.ToString();
 
-        private void ValorUnitario_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (Testezinho != null)
-                Testezinho(this, e);
-        }
-
-        private void Produto_LostFocus(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ValorUnitario.Text = selectedProduct?.ValorVenda.ToString();
-            if (Testezinho != null)
-                Testezinho(this, e);
+            Testezinho?.Invoke(this, e);
         }
     }
 }
