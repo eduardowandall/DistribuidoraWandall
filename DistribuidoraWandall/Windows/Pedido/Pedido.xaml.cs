@@ -17,7 +17,7 @@ namespace DistribuidoraWandall.Windows.Pedido
     /// <summary>
     /// Interaction logic for Pedido.xaml
     /// </summary>
-    public partial class Pedido : Window
+    public partial class Pedido : UserControl
     {
         public Pedido()
         {

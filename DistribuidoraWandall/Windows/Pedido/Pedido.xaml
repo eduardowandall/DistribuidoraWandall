@@ -1,14 +1,40 @@
-﻿<Window x:Class="DistribuidoraWandall.Windows.Pedidos.Pedido"
+﻿<UserControl x:Class="DistribuidoraWandall.Windows.Pedido.Pedido"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DistribuidoraWandall.Windows.Pedido"
-        mc:Ignorable="d"
-        Title="Pedido" Height="450" Width="800">
+        xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+        mc:Ignorable="d" Height="450" Width="800">
     <Grid>
-        <TextBlock>Cliente</TextBlock>
-        <ComboBox></ComboBox>
-        <local:ProdutosPedido></local:ProdutosPedido>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+        <Grid VerticalAlignment="Top" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="0,0,10,0">Cliente</TextBlock>
+            <dotNetKitControls:AutoCompleteComboBox
+                Name="Cliente"
+                SelectedValuePath="Id"
+                TextSearch.TextPath="Nome"
+                DisplayMemberPath="Nome"
+                ItemsSource="{Binding Items}"
+                SelectedItem="{Binding SelectedItem}"
+                Grid.Column="1" VerticalContentAlignment="Center">
+            </dotNetKitControls:AutoCompleteComboBox>
+        </Grid>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+            <local:ProdutosPedido Padding="10,10,10,10"></local:ProdutosPedido>
+        </ScrollViewer>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Right">Valor Total:</TextBlock>
+        <TextBlock Grid.Row="2" Text="{Binding Total}" HorizontalAlignment="Right">2342</TextBlock>
     </Grid>
-</Window>
+</UserControl>

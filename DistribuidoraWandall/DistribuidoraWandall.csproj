@@ -69,12 +69,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\MenuPrincipal.xaml.cs">
+      <DependentUpon>MenuPrincipal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Pedido\Pedido.xaml.cs">
       <DependentUpon>Pedido.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Pedido\ProdutosPedido.xaml.cs">
       <DependentUpon>ProdutosPedido.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\MenuPrincipal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Components\ProdutoPedidoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
