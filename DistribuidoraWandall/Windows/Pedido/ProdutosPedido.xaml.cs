@@ -1,4 +1,4 @@
-﻿using DistribuidoraWandall.Components;
+﻿using DistribuidoraWandall.Windows.Pedido.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +23,12 @@ namespace DistribuidoraWandall.Windows.Pedido
         public ProdutosPedido()
         {
             InitializeComponent();
-            CriarGridProdutos();
+            PopularGridProdutos();
         }
 
 
         public IEnumerable<ProdutoPedidoItem> Produtos => gridProdutos.Children.Cast<ProdutoPedidoItem>();
-        private void CriarGridProdutos()
+        private void PopularGridProdutos()
         {
             var novoItem = new ProdutoPedidoItem();
 
@@ -41,7 +41,7 @@ namespace DistribuidoraWandall.Windows.Pedido
             Grid.SetRow(novoItem, gridProdutos.RowDefinitions.Count - 1);
         }
 
-        private void MainWindow_Testezinho(object sender, System.EventArgs data)
+        private void MainWindow_Testezinho(object sender, EventArgs data)
         {
             if (!(Produtos.LastOrDefault()?.IsEmpty).GetValueOrDefault())
             {

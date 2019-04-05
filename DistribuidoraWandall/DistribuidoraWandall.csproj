@@ -69,20 +69,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Components\MenuPrincipal.xaml.cs">
-      <DependentUpon>MenuPrincipal.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\Pedido\Pedido.xaml.cs">
-      <DependentUpon>Pedido.xaml</DependentUpon>
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Windows\Pedido\PedidoWindow.xaml.cs">
+      <DependentUpon>PedidoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Pedido\ProdutosPedido.xaml.cs">
       <DependentUpon>ProdutosPedido.xaml</DependentUpon>
     </Compile>
-    <Page Include="Components\MenuPrincipal.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Components\ProdutoPedidoItem.xaml">
+    <Page Include="Windows\Pedido\Components\ProdutoPedidoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -94,7 +88,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Components\ProdutoPedidoItem.xaml.cs">
+    <Compile Include="Windows\Pedido\Components\ProdutoPedidoItem.xaml.cs">
       <DependentUpon>ProdutoPedidoItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ClientesController.cs" />
@@ -109,7 +103,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\Pedido\Pedido.xaml">
+    <Page Include="Windows\Pedido\PedidoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

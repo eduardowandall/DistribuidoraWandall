@@ -4,8 +4,9 @@ using System.Linq;
 
 namespace DistribuidoraWandall.Controllers
 {
-    public class ProdutosController
+    public class ProdutosController : BaseController
     {
+
         private static ProdutosController _instance;
         public static ProdutosController Instance
         {
@@ -17,8 +18,6 @@ namespace DistribuidoraWandall.Controllers
             }
         }
 
-        private static List<Produto> _produtos;
-
         private ProdutosController()
         {
 
@@ -26,14 +25,13 @@ namespace DistribuidoraWandall.Controllers
 
         public List<Produto> Buscar()
         {
-            if (_produtos == null)
-                using (var db = new DB.DBEntities())
-                {
-                    var produtos = db.Produtos
-                        .FindAll().OrderByDescending(x => x.Id).ToList();
-                    _produtos = produtos;
-                }
-            return _produtos;
+            //if (_produtos == null)
+            using (var db = new DB.DBEntities())
+            {
+                var produtos = db.Produtos
+                    .FindAll().OrderByDescending(x => x.Id).ToList();
+                return produtos;
+            }
         }
         public object Apagar(int id)
         {

@@ -3,23 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:DistribuidoraWandall.Components"
         xmlns:pedido="clr-namespace:DistribuidoraWandall.Windows.Pedido"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.1*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Name="Menu">
-            <local:MenuPrincipal></local:MenuPrincipal>
-        </Grid>
-        <Grid Grid.Column="1" Name="Content">
-            <pedido:Pedido></pedido:Pedido>
-        </Grid>
+        <TabControl TabStripPlacement="Left">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Padding" Value="20,20,20,20" />
+                    <Setter Property="Header" Value="20"/>
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <ContentPresenter Content="{TemplateBinding Content}">
+                                    <ContentPresenter.LayoutTransform>
+                                        <RotateTransform Angle="0" />
+                                    </ContentPresenter.LayoutTransform>
+                                </ContentPresenter>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="CL" FontSize="30" />
+                </TabItem.Header>
+                <pedido:PedidoWindow></pedido:PedidoWindow>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

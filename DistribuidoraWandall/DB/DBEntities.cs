@@ -1,8 +1,4 @@
 ﻿using LiteDB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DistribuidoraWandall.DB
 {
@@ -19,5 +15,16 @@ namespace DistribuidoraWandall.DB
         public LiteCollection<Cliente> Clientes { get { return GetCollection<Cliente>(tb_cliente); } }
         public LiteCollection<Produto> Produtos { get { return GetCollection<Produto>(tb_produto); } }
         public LiteCollection<Pedido> Pedidos { get { return GetCollection<Pedido>(tb_pedido); } }
+
+
+        public static void InitializeDatabase()
+        {
+            var mapper = BsonMapper.Global;
+
+            mapper.Entity<Pedido>()
+                .DbRef(x => x.Cliente, tb_cliente);
+            mapper.Entity<PedidoProduto>()
+                .DbRef(x => x.Produto, tb_produto);
+        }
     }
 }

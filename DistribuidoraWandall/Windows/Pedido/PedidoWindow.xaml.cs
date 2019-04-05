@@ -3,18 +3,27 @@ using DistribuidoraWandall.DB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
-namespace DistribuidoraWandall.Components
+namespace DistribuidoraWandall.Windows.Pedido
 {
     /// <summary>
-    /// Interaction logic for ProdutoPedidoItem.xaml
+    /// Interaction logic for Pedido.xaml
     /// </summary>
-    public partial class ProdutoPedidoItem : UserControl
+    public partial class PedidoWindow : UserControl
     {
-        //TODO - Criar controllers para as classes(precisa criar prop pra mostrar e pesquisar Id e Nome. e prop para total)
-        sealed class PedidoProdutoViewModel : INotifyPropertyChanged
+        sealed class ClienteViewModel : INotifyPropertyChanged
         {
             #region INotifyPropertyChanged
             public event PropertyChangedEventHandler PropertyChanged;
@@ -29,13 +38,13 @@ namespace DistribuidoraWandall.Components
             }
             #endregion
 
-            public IReadOnlyList<Produto> Items
+            public IReadOnlyList<Cliente> Items
             {
-                get { return ProdutosController.Instance.Buscar(); }
+                get { return ClientesController.Instance.Buscar(); }
             }
 
-            Produto selectedItem;
-            public Produto SelectedItem
+            Cliente selectedItem;
+            public Cliente SelectedItem
             {
                 get { return selectedItem; }
                 set { SetField(ref selectedItem, value); }
@@ -57,27 +66,30 @@ namespace DistribuidoraWandall.Components
             public double Total => ValorUnitario * Quantidade;
         }
 
-        public bool IsEmpty { get { return SelectedProduct == null && string.IsNullOrWhiteSpace(Produto.Text); } }
+        private ClienteViewModel ViewModel { get; set; }
+        public Cliente SelectedCostumer => ViewModel.SelectedItem;
 
-        public event EventHandler Testezinho;
 
-        private PedidoProdutoViewModel ViewModel { get; set; }
-        private Produto SelectedProduct => ViewModel.SelectedItem;
-
-        public ProdutoPedidoItem()
+        public PedidoWindow()
         {
             InitializeComponent();
-            ViewModel = new PedidoProdutoViewModel();
-            ViewModel.PropertyChanged += ProdutoPedidoItem_PropertyChanged;
-            gridProdutos.DataContext = ViewModel;
+            ViewModel = new ClienteViewModel();
+            Cliente.DataContext = ViewModel;
         }
 
-        private void ProdutoPedidoItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Salvar_Click(object sender, RoutedEventArgs e)
         {
-            if (e.PropertyName == "SelectedItem")
-                ValorUnitario.Text = SelectedProduct?.ValorVenda.ToString();
+            var produtos = ListaProdutos.Produtos.Select(x => x.SelectedProduct);
+            var opa = new DB.Pedido() {
+                Cliente = SelectedCostumer,
+                DataPedido = DateTime.Now,
+                
+            };
+        }
 
-            Testezinho?.Invoke(this, e);
+        private void Imprimir_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

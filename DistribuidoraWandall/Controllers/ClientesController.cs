@@ -4,8 +4,24 @@ using DistribuidoraWandall.DB;
 
 namespace DistribuidoraWandall.Controllers
 {
-    public class ClientesController
+    public class ClientesController : BaseController
     {
+
+        private static ClientesController _instance;
+        public static ClientesController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new ClientesController();
+                return _instance;
+            }
+        }
+
+        private ClientesController()
+        {
+
+        }
 
         public List<Cliente> Buscar()
         {

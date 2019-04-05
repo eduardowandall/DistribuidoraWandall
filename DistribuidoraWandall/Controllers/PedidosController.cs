@@ -1,10 +1,29 @@
-﻿using System;
+﻿using DistribuidoraWandall.DB;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DistribuidoraWandall.Controllers
 {
-    public class PedidosController
+    public class PedidosController : BaseController
     {
+
+        private static PedidosController _instance;
+        public static PedidosController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new PedidosController();
+                return _instance;
+            }
+        }
+
+        private PedidosController()
+        {
+
+        }
+
         public object Imprimir(int id)
         {
             using (var db = new DB.DBEntities())
@@ -38,20 +57,25 @@ namespace DistribuidoraWandall.Controllers
                     return null; //não foi
             }
         }
-        public object Buscar()
+        public List<Pedido> Buscar()
         {
             using (var db = new DB.DBEntities())
             {
                 var pedidos = db.Pedidos
-                    .Include(x => x.Cliente)
-                    .FindAll().Select(x => new
-                    {
-                        x.Id,
-                        x.DataPedido,
-                        x.Cliente,
-                        ValorTotal = x.Produtos == null ? 0 : x.Produtos.Sum(y => y.ValorVendido * y.Quantidade),
-                    });
+    .Include(x => x.Cliente)
+    .FindAll().ToList();
                 return pedidos;
+
+                //var pedidos = db.Pedidos
+                //    .Include(x => x.Cliente)
+                //    .FindAll().Select(x => new
+                //    {
+                //        x.Id,
+                //        x.DataPedido,
+                //        x.Cliente,
+                //        ValorTotal = x.Produtos == null ? 0 : x.Produtos.Sum(y => y.ValorVendido * y.Quantidade),
+                //    }).ToList();
+                //return pedidos;
             }
         }
         public object BuscarPorId(int id)
