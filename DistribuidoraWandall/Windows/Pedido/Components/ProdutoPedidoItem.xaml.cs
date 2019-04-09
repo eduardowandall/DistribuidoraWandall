@@ -41,21 +41,42 @@ namespace DistribuidoraWandall.Windows.Pedido.Components
                 set { SetField(ref selectedItem, value); }
             }
 
-            double quantidade = 1;
-            public double Quantidade
+            int quantidade = 1;
+            public int Quantidade
             {
                 get { return quantidade; }
-                set { SetField(ref quantidade, value); }
+                set
+                {
+                    SetField(ref quantidade, value);
+                    UpdateTotal();
+                }
             }
 
             double valorUnitario;
             public double ValorUnitario
             {
                 get { return valorUnitario; }
-                set { SetField(ref valorUnitario, value); }
+                set
+                {
+                    SetField(ref valorUnitario, value);
+                    UpdateTotal();
+                }
             }
 
             public double Total => ValorUnitario * Quantidade;
+
+
+            private void UpdateTotal()
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+            }
+            public PedidoProduto ObterProdutoPedido() {
+                return new PedidoProduto() {
+                    Produto = SelectedItem,
+                    Quantidade = Quantidade,
+                    ValorVendido = ValorUnitario
+                };
+            }
         }
 
         public bool IsEmpty { get { return SelectedProduct == null && string.IsNullOrWhiteSpace(Produto.Text); } }
@@ -64,6 +85,7 @@ namespace DistribuidoraWandall.Windows.Pedido.Components
 
         private PedidoProdutoViewModel ViewModel { get; set; }
         public Produto SelectedProduct => ViewModel.SelectedItem;
+        public PedidoProduto SelectedOrderProduct => ViewModel.ObterProdutoPedido();
 
         public ProdutoPedidoItem()
         {

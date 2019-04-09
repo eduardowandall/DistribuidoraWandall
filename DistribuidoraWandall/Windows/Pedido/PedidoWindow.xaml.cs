@@ -1,9 +1,13 @@
 ﻿using DistribuidoraWandall.Controllers;
 using DistribuidoraWandall.DB;
+using DistribuidoraWandall.Reports;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -79,17 +83,31 @@ namespace DistribuidoraWandall.Windows.Pedido
 
         private void Salvar_Click(object sender, RoutedEventArgs e)
         {
-            var produtos = ListaProdutos.Produtos.Select(x => x.SelectedProduct);
+            var produtos = ListaProdutos.Produtos.Select(x => x.SelectedOrderProduct);
             var opa = new DB.Pedido() {
                 Cliente = SelectedCostumer,
                 DataPedido = DateTime.Now,
-                
+                Produtos = produtos
             };
+            PedidosController.Instance.Salvar(opa);
         }
 
         private void Imprimir_Click(object sender, RoutedEventArgs e)
         {
-
+            var report = new LocalReport();
+            report.ReportEmbeddedResource = "DistribuidoraWandall.Reports.Pedidos.rdlc";
+            report.PrintToPrinter();
+        }
+        private string ReadEmbeddedResource(string ResourceName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(ResourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
+                string temp = result.Replace('\r', ' ');
+                return temp;
+            }
         }
     }
 }

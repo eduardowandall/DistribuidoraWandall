@@ -25,7 +25,6 @@ namespace DistribuidoraWandall.Controllers
 
         public List<Produto> Buscar()
         {
-            //if (_produtos == null)
             using (var db = new DB.DBEntities())
             {
                 var produtos = db.Produtos

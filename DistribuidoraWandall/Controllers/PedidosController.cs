@@ -7,7 +7,6 @@ namespace DistribuidoraWandall.Controllers
 {
     public class PedidosController : BaseController
     {
-
         private static PedidosController _instance;
         public static PedidosController Instance
         {
@@ -28,10 +27,7 @@ namespace DistribuidoraWandall.Controllers
         {
             using (var db = new DB.DBEntities())
             {
-                var pedidoDB = db.Pedidos
-                    .Include(x => x.Cliente)
-                    .Include(x => x.Produtos[0].Produto)
-                    .FindOne(x => x.Id == id);
+                var pedidoDB = GetPedido(id, db);
                 return new
                 {
                     DataPedido = pedidoDB.DataPedido.ToString("dd/MM/yyyy"),
@@ -42,22 +38,14 @@ namespace DistribuidoraWandall.Controllers
                 };
             }
         }
-        public object Apagar(int id)
+
+        public bool Apagar(int id)
         {
             using (var db = new DB.DBEntities())
-            {
-                var pedidoDB = db.Pedidos
-                    .Include(x => x.Cliente)
-                    .Include(x => x.Produtos[0].Produto)
-                    .FindOne(x => x.Id == id);
-                var rowsModified = db.Pedidos.Delete(x => x.Id == id);
-                if (rowsModified >= 1)
-                    return null; //foi
-                else
-                    return null; //não foi
-            }
+                return db.Pedidos.Delete(x => x.Id == id) >= 1;
         }
-        public List<Pedido> Buscar()
+
+        public IEnumerable<Pedido> Buscar()
         {
             using (var db = new DB.DBEntities())
             {
@@ -78,18 +66,16 @@ namespace DistribuidoraWandall.Controllers
                 //return pedidos;
             }
         }
-        public object BuscarPorId(int id)
+
+        public Pedido BuscarPorId(int id)
         {
             using (var db = new DB.DBEntities())
             {
-                var pedido = db.Pedidos
-                    .Include(x => x.Cliente)
-                    .Include(x => x.Produtos[0].Produto)
-                    .FindOne(x => x.Id == id);
-                return pedido;
+                return GetPedido(id, db);
             }
         }
-        public object Salvar(DB.Pedido pd)
+
+        public int Salvar(DB.Pedido pd)
         {
             using (var db = new DB.DBEntities())
             {
@@ -102,6 +88,14 @@ namespace DistribuidoraWandall.Controllers
 
                 return pd.Id;
             }
+        }
+
+        private Pedido GetPedido(int id, DBEntities db)
+        {
+            return db.Pedidos
+                .Include(x => x.Cliente)
+                .Include(x => x.Produtos.First().Produto)
+                .FindOne(x => x.Id == id);
         }
     }
 }

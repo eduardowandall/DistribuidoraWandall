@@ -44,6 +44,8 @@
     <Reference Include="LiteDB, Version=4.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.4.1.4\lib\net40\LiteDB.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.0.1\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -70,6 +72,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Reports\PrintReport.cs" />
+    <Compile Include="Reports\ReportPedido.cs" />
+    <Compile Include="Reports\ReportProduto.cs" />
     <Compile Include="Windows\Pedido\PedidoWindow.xaml.cs">
       <DependentUpon>PedidoWindow.xaml</DependentUpon>
     </Compile>
@@ -130,10 +135,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Pedidos.rdlc" />
     <None Include="ArquivoDeInformacoes.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\DistribuidoraWandall.Reports.ReportProduto.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -142,5 +149,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
