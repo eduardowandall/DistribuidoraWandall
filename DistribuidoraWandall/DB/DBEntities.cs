@@ -20,7 +20,6 @@ namespace DistribuidoraWandall.DB
         public static void InitializeDatabase()
         {
             var mapper = BsonMapper.Global;
-
             mapper.Entity<Pedido>()
                 .DbRef(x => x.Cliente, tb_cliente);
             mapper.Entity<PedidoProduto>()

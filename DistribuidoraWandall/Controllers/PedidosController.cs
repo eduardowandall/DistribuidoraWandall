@@ -49,10 +49,10 @@ namespace DistribuidoraWandall.Controllers
         {
             using (var db = new DB.DBEntities())
             {
-                var pedidos = db.Pedidos
-    .Include(x => x.Cliente)
-    .FindAll().ToList();
-                return pedidos;
+                return db.Pedidos
+                    .Include(x => x.Cliente)
+                    .Include(x => x.Produtos)
+                    .FindAll();
 
                 //var pedidos = db.Pedidos
                 //    .Include(x => x.Cliente)
@@ -92,10 +92,12 @@ namespace DistribuidoraWandall.Controllers
 
         private Pedido GetPedido(int id, DBEntities db)
         {
-            return db.Pedidos
+            var teste = db.Pedidos
                 .Include(x => x.Cliente)
-                .Include(x => x.Produtos.First().Produto)
+                .Include(x => x.Produtos)
+                .Include(x=>x.Produtos[0].Produto)
                 .FindOne(x => x.Id == id);
+            return teste;
         }
     }
 }

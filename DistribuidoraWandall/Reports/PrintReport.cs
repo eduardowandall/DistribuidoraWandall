@@ -32,10 +32,10 @@ namespace DistribuidoraWandall.Reports
                 <OutputFormat>EMF</OutputFormat>
                 <PageWidth>21cm</PageWidth>
                 <PageHeight>29.7cm</PageHeight>
-                <MarginTop>0.1in</MarginTop>
-                <MarginLeft>0.1in</MarginLeft>
-                <MarginRight>0.1in</MarginRight>
-                <MarginBottom>0.1in</MarginBottom>
+                <MarginTop>0in</MarginTop>
+                <MarginLeft>0in</MarginLeft>
+                <MarginRight>0in</MarginRight>
+                <MarginBottom>0in</MarginBottom>
             </DeviceInfo>";
             Warning[] warnings;
             m_streams = new List<Stream>();

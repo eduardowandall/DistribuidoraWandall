@@ -9,16 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace DistribuidoraWandall.Windows.Pedido
 {
@@ -84,10 +76,11 @@ namespace DistribuidoraWandall.Windows.Pedido
         private void Salvar_Click(object sender, RoutedEventArgs e)
         {
             var produtos = ListaProdutos.Produtos.Select(x => x.SelectedOrderProduct);
-            var opa = new DB.Pedido() {
+            var opa = new DB.Pedido()
+            {
                 Cliente = SelectedCostumer,
                 DataPedido = DateTime.Now,
-                Produtos = produtos
+                Produtos = produtos.ToList()
             };
             PedidosController.Instance.Salvar(opa);
         }
@@ -96,6 +89,13 @@ namespace DistribuidoraWandall.Windows.Pedido
         {
             var report = new LocalReport();
             report.ReportEmbeddedResource = "DistribuidoraWandall.Reports.Pedidos.rdlc";
+            var opa = PedidosController.Instance.BuscarPorId(42);
+            report.DataSources.Add(new ReportDataSource("Produtos", opa.Produtos.Select(x => new ReportProduto()
+            {
+                Nome = x.Produto.Nome,
+                Quantidade = x.Quantidade,
+                ValorUnitario = x.ValorVendido
+            })));
             report.PrintToPrinter();
         }
         private string ReadEmbeddedResource(string ResourceName)

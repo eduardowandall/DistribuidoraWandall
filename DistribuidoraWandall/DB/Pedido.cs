@@ -8,7 +8,7 @@ namespace DistribuidoraWandall.DB
         public int Id { get; set; }
         public Cliente Cliente { get; set; }
         public DateTime DataPedido { get; set; }
-        public IEnumerable<PedidoProduto> Produtos { get; set; }
+        public List<PedidoProduto> Produtos { get; set; }
     }
 
     public class PedidoProduto

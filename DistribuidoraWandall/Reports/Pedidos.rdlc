@@ -6,16 +6,22 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>12.03403cm</Width>
+              <Width>8.81873cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.37674cm</Width>
+              <Width>1.43305cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.87944cm</Width>
+              <Width>1.18118cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.64604cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.13299cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>3.42605cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -67,7 +73,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Quantidade</Value>
+                              <Value>Qtde</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>SemiBold</FontWeight>
@@ -96,14 +102,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox12">
+                    <Textbox Name="Textbox1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Valor Unidade</Value>
+                              <Value>Valor Unitário</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>SemiBold</FontWeight>
@@ -115,7 +121,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox12</rd:DefaultName>
+                      <rd:DefaultName>Textbox1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -128,11 +134,13 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <ColSpan>2</ColSpan>
                   </CellContents>
                 </TablixCell>
+                <TablixCell />
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox14">
+                    <Textbox Name="Textbox3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -151,7 +159,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox14</rd:DefaultName>
+                      <rd:DefaultName>Textbox3</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -164,8 +172,10 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <ColSpan>2</ColSpan>
                   </CellContents>
                 </TablixCell>
+                <TablixCell />
               </TablixCells>
             </TablixRow>
             <TablixRow>
@@ -235,6 +245,41 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>R$</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox2</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <RightBorder>
+                          <Color>White</Color>
+                        </RightBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="ValorUnitario">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -244,7 +289,7 @@
                             <TextRun>
                               <Value>=Fields!ValorUnitario.Value</Value>
                               <Style>
-                                <Format>=FormatCurrency(Fields!ValorUnitario.Value, 2)</Format>
+                                <Format>=FormatNumber(Fields!ValorUnitario.Value,2)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -259,6 +304,44 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <LeftBorder>
+                          <Color>White</Color>
+                        </LeftBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox4">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>R$</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox4</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <RightBorder>
+                          <Color>White</Color>
+                        </RightBorder>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -278,7 +361,7 @@
                             <TextRun>
                               <Value>=Fields!ValorTotal.Value</Value>
                               <Style>
-                                <Format>=FormatCurrency(Fields!ValorTotal.Value, 2)</Format>
+                                <Format>=FormatNumber(Fields!ValorTotal.Value, 2)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -293,6 +376,9 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <LeftBorder>
+                          <Color>White</Color>
+                        </LeftBorder>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -311,6 +397,8 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -325,9 +413,9 @@
         </TablixRowHierarchy>
         <DataSetName>Produtos</DataSetName>
         <Top>0.06174cm</Top>
-        <Left>0.61419cm</Left>
+        <Left>0.29669cm</Left>
         <Height>1.2cm</Height>
-        <Width>19.79021cm</Width>
+        <Width>18.63804cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -338,7 +426,7 @@
     <Height>0.58333in</Height>
     <Style />
   </Body>
-  <Width>8.43056in</Width>
+  <Width>21cm</Width>
   <Page>
     <PageHeader>
       <Height>3.69006cm</Height>
@@ -365,8 +453,9 @@
             </Paragraph>
           </Paragraphs>
           <Top>2.68464cm</Top>
+          <Left>6.48229cm</Left>
           <Height>0.74965cm</Height>
-          <Width>21.41361cm</Width>
+          <Width>8.2109cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -409,10 +498,10 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox16</rd:DefaultName>
-          <Top>0.51107cm</Top>
-          <Left>17.04008cm</Left>
-          <Height>0.52945cm</Height>
-          <Width>2.89688cm</Width>
+          <Top>0.29971cm</Top>
+          <Left>16.97835cm</Left>
+          <Height>0.5cm</Height>
+          <Width>3.39959cm</Width>
           <ZIndex>2</ZIndex>
           <Style>
             <Border>
@@ -428,8 +517,8 @@
           <Source>Embedded</Source>
           <Value>whatsapp</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>0.51107cm</Top>
-          <Left>16.50481cm</Left>
+          <Top>0.29971cm</Top>
+          <Left>16.44308cm</Left>
           <Height>0.5cm</Height>
           <Width>0.5cm</Width>
           <ZIndex>3</ZIndex>
@@ -456,10 +545,10 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox16</rd:DefaultName>
-          <Top>1.07579cm</Top>
-          <Left>17.04008cm</Left>
-          <Height>0.52945cm</Height>
-          <Width>2.89688cm</Width>
+          <Top>0.86443cm</Top>
+          <Left>16.97835cm</Left>
+          <Height>0.5cm</Height>
+          <Width>3.39959cm</Width>
           <ZIndex>4</ZIndex>
           <Style>
             <Border>
@@ -475,8 +564,8 @@
           <Source>Embedded</Source>
           <Value>phone</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>1.07579cm</Top>
-          <Left>16.54008cm</Left>
+          <Top>0.86443cm</Top>
+          <Left>16.47835cm</Left>
           <Height>0.5cm</Height>
           <Width>0.5cm</Width>
           <ZIndex>5</ZIndex>
@@ -503,9 +592,9 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox16</rd:DefaultName>
-          <Top>1.64052cm</Top>
-          <Left>17.04008cm</Left>
-          <Height>0.52945cm</Height>
+          <Top>1.42916cm</Top>
+          <Left>16.97835cm</Left>
+          <Height>0.5cm</Height>
           <Width>3.39959cm</Width>
           <ZIndex>6</ZIndex>
           <Style>
@@ -522,8 +611,8 @@
           <Source>Embedded</Source>
           <Value>mail</Value>
           <Sizing>FitProportional</Sizing>
-          <Top>1.66997cm</Top>
-          <Left>16.50481cm</Left>
+          <Top>1.43499cm</Top>
+          <Left>16.44308cm</Left>
           <Height>0.5cm</Height>
           <Width>0.5cm</Width>
           <ZIndex>7</ZIndex>
@@ -594,35 +683,6 @@
         <rd:DataSetName>DistribuidoraWandall.Reports</rd:DataSetName>
         <rd:TableName>ReportProduto</rd:TableName>
         <rd:ObjectDataSourceType>DistribuidoraWandall.Reports.ReportProduto, DistribuidoraWandall, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="Pedido">
-      <Query>
-        <DataSourceName>DistribuidoraWandallReports1</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="DataPedido">
-          <DataField>DataPedido</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="NomeCliente">
-          <DataField>NomeCliente</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Produtos">
-          <DataField>Produtos</DataField>
-          <rd:TypeName>System.Collections.Generic.IEnumerable`1[[DistribuidoraWandall.Reports.ReportProduto, DistribuidoraWandall, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]</rd:TypeName>
-        </Field>
-        <Field Name="Total">
-          <DataField>Total</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DistribuidoraWandall.Reports</rd:DataSetName>
-        <rd:TableName>ReportPedido</rd:TableName>
-        <rd:ObjectDataSourceType>DistribuidoraWandall.Reports.ReportPedido, DistribuidoraWandall, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -832,6 +892,7 @@ ABJrfjPX+Cu4oo9tV/mf3lKlBbJGT4V8EaT4I0tbLR9N0/SbNWLCCyt0t4gTjJ2qAM8DtWosYTpTqKzl
 z34LYrjwr4cG3/qHxf8AxNa3hv4c6T4LjkXRtN07SVnO6YWtusXmEdM7QM9e9b1FY1K9apFwqTbT7tmtHLcJSmqlKnGLXVJI5PU/gl4W1zUZry+8O6DeXlywaWeWxjaSQ4AySQSeAByegxUP/DPngn/oVPD3/gvi/wDia7KitI4zEJWU5W9WZyynBSfNKlFv/Cv8jjf+GffBP/QqeHv/AAXxf/E0v/DPvgn/AKFTw9/4L4v/AImuxoqvr2J/5+S+9k/2Pgf+fMf/AAFf5HHf8M++Cf8AoU/D3/gvi/8AiaP+GffBP/QqeHv/AAXxf/E12NFH17E/8/Jfew/sfA/8+Y/+Ar/I47/hn3wT/wBCp4e/8F8X/wATR/wz74J/6FPw9/4L4v8A4muxoo+vYn/n5L72H9j4H/nzH/wFf5HGp8AfBsEyyR+FfDyurBgf7Pi4IOQfu9Qea6yCBo1+YrntjpU1FY1K1So06km7d3c6sPhaNBNUYKN+yS/IRRgUtFFZnQFFFFAH/9k=</ImageData>
     </EmbeddedImage>
   </EmbeddedImages>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>adb3fa4d-9cea-4c50-ae42-657d346c40b7</rd:ReportID>
 </Report>
