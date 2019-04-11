@@ -75,22 +75,16 @@ namespace DistribuidoraWandall.Windows.Pedido
 
         private void Salvar_Click(object sender, RoutedEventArgs e)
         {
-            var produtos = ListaProdutos.Produtos.Select(x => x.SelectedOrderProduct);
-            var opa = new DB.Pedido()
-            {
-                Cliente = SelectedCostumer,
-                DataPedido = DateTime.Now,
-                Produtos = produtos.ToList()
-            };
-            PedidosController.Instance.Salvar(opa);
+            SalvarPedido();
         }
 
         private void Imprimir_Click(object sender, RoutedEventArgs e)
         {
+            var pedido = SalvarPedido();
             var report = new LocalReport();
             report.ReportEmbeddedResource = "DistribuidoraWandall.Reports.Pedidos.rdlc";
-            var opa = PedidosController.Instance.BuscarPorId(42);
-            report.DataSources.Add(new ReportDataSource("Produtos", opa.Produtos.Select(x => new ReportProduto()
+
+            report.DataSources.Add(new ReportDataSource("Produtos", pedido.Produtos.Select(x => new ReportProduto()
             {
                 Nome = x.Produto.Nome,
                 Quantidade = x.Quantidade,
@@ -98,6 +92,7 @@ namespace DistribuidoraWandall.Windows.Pedido
             })));
             report.PrintToPrinter();
         }
+
         private string ReadEmbeddedResource(string ResourceName)
         {
             var assembly = Assembly.GetExecutingAssembly();
@@ -109,5 +104,23 @@ namespace DistribuidoraWandall.Windows.Pedido
                 return temp;
             }
         }
+
+        private DB.Pedido SalvarPedido()
+        {
+            var produtos = ListaProdutos.Produtos.Select(x => x.SelectedOrderProduct);
+            produtos.Where(x => x.Produto.Temporario).ToList().ForEach((x) =>
+            {
+                ProdutosController.Instance.Salvar(x.Produto);
+            });
+            var pedido = new DB.Pedido()
+            {
+                Cliente = SelectedCostumer,
+                DataPedido = DateTime.Now,
+                Produtos = produtos.ToList()
+            };
+            PedidosController.Instance.Salvar(pedido);
+            return pedido;
+        }
+
     }
 }

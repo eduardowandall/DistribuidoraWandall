@@ -70,22 +70,28 @@ namespace DistribuidoraWandall.Windows.Pedido.Components
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
             }
-            public PedidoProduto ObterProdutoPedido() {
-                return new PedidoProduto() {
-                    Produto = SelectedItem,
+            public PedidoProduto ObterProdutoPedido(DB.Produto temp)
+            {
+                return new PedidoProduto()
+                {
+                    Produto = SelectedItem != null ? SelectedItem : temp,
                     Quantidade = Quantidade,
                     ValorVendido = ValorUnitario
                 };
             }
         }
 
-        public bool IsEmpty { get { return SelectedProduct == null && string.IsNullOrWhiteSpace(Produto.Text); } }
+        public bool IsEmpty { get { return ViewModel.SelectedItem == null && string.IsNullOrWhiteSpace(Produto.Text); } }
 
-        public event EventHandler Testezinho;
+        public event EventHandler OnProductSelected;
 
         private PedidoProdutoViewModel ViewModel { get; set; }
-        public Produto SelectedProduct => ViewModel.SelectedItem;
-        public PedidoProduto SelectedOrderProduct => ViewModel.ObterProdutoPedido();
+        public PedidoProduto SelectedOrderProduct => ViewModel.ObterProdutoPedido(new DB.Produto()
+        {
+            Nome = Produto.Text,
+            ValorVenda = ViewModel.ValorUnitario,
+            Temporario = true
+        });
 
         public ProdutoPedidoItem()
         {
@@ -97,11 +103,11 @@ namespace DistribuidoraWandall.Windows.Pedido.Components
 
         private void ProdutoPedidoItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "SelectedItem" && SelectedProduct != null)
+            if (e.PropertyName == "SelectedItem" && ViewModel.SelectedItem != null)
             {
                 //ValorUnitario.Text = SelectedProduct.ValorVenda.ToString();
-                ViewModel.ValorUnitario = SelectedProduct.ValorVenda;
-                Testezinho?.Invoke(this, e);
+                ViewModel.ValorUnitario = ViewModel.SelectedItem.ValorVenda;
+                OnProductSelected?.Invoke(this, e);
             }
         }
     }

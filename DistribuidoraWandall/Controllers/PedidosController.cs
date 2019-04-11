@@ -51,7 +51,7 @@ namespace DistribuidoraWandall.Controllers
             {
                 return db.Pedidos
                     .Include(x => x.Cliente)
-                    .Include(x => x.Produtos)
+                    //.Include(x => x.Produtos[0].Produto)
                     .FindAll();
 
                 //var pedidos = db.Pedidos
@@ -92,12 +92,11 @@ namespace DistribuidoraWandall.Controllers
 
         private Pedido GetPedido(int id, DBEntities db)
         {
-            var teste = db.Pedidos
+            return db.Pedidos
                 .Include(x => x.Cliente)
                 .Include(x => x.Produtos)
                 .Include(x=>x.Produtos[0].Produto)
                 .FindOne(x => x.Id == id);
-            return teste;
         }
     }
 }

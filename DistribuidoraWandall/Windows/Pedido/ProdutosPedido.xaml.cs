@@ -36,7 +36,7 @@ namespace DistribuidoraWandall.Windows.Pedido
             row.Height = new GridLength(novoItem.Height, GridUnitType.Pixel);
             gridProdutos.ColumnDefinitions.Add(new ColumnDefinition());
             gridProdutos.RowDefinitions.Add(new RowDefinition());
-            novoItem.Testezinho += MainWindow_Testezinho;
+            novoItem.OnProductSelected += MainWindow_Testezinho;
             gridProdutos.Children.Add(novoItem);
             Grid.SetRow(novoItem, gridProdutos.RowDefinitions.Count - 1);
         }
@@ -47,7 +47,7 @@ namespace DistribuidoraWandall.Windows.Pedido
             {
                 gridProdutos.RowDefinitions.Add(new RowDefinition());
                 var novoItem = new ProdutoPedidoItem();
-                novoItem.Testezinho += MainWindow_Testezinho;
+                novoItem.OnProductSelected += MainWindow_Testezinho;
                 gridProdutos.Children.Add(novoItem);
                 Grid.SetRow(novoItem, gridProdutos.RowDefinitions.Count - 1);
             }
