@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:pedido="clr-namespace:DistribuidoraWandall.Windows.Pedido"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="700">
     <Grid>
         <TabControl TabStripPlacement="Left">
             <TabControl.Resources>
@@ -27,7 +27,7 @@
             </TabControl.Resources>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="CL" FontSize="30" />
+                    <TextBlock Text="pd" FontSize="30" />
                 </TabItem.Header>
                 <pedido:PedidoWindow></pedido:PedidoWindow>
             </TabItem>

@@ -32,6 +32,15 @@ namespace DistribuidoraWandall.Controllers
                 return produtos;
             }
         }
+        public List<Produto> Buscar(string searchText)
+        {
+            using (var db = new DB.DBEntities())
+            {
+                var produtos = db.Produtos
+                    .FindAll().Where(x => x.Nome.ToLowerInvariant() == searchText.ToLowerInvariant()).ToList();
+                return produtos;
+            }
+        }
         public object Apagar(int id)
         {
             return SetProdutoApagado(id, true);

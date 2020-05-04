@@ -70,9 +70,9 @@ namespace DistribuidoraWandall.Windows.Pedido.Components
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
             }
-            public PedidoProduto ObterProdutoPedido(DB.Produto temp)
+            public ProdutoPedido ObterProdutoPedido(DB.Produto temp)
             {
-                return new PedidoProduto()
+                return new ProdutoPedido()
                 {
                     Produto = SelectedItem != null ? SelectedItem : temp,
                     Quantidade = Quantidade,
@@ -86,11 +86,10 @@ namespace DistribuidoraWandall.Windows.Pedido.Components
         public event EventHandler OnProductSelected;
 
         private PedidoProdutoViewModel ViewModel { get; set; }
-        public PedidoProduto SelectedOrderProduct => ViewModel.ObterProdutoPedido(new DB.Produto()
+        public ProdutoPedido SelectedOrderProduct => ViewModel.ObterProdutoPedido(new DB.Produto()
         {
             Nome = Produto.Text,
-            ValorVenda = ViewModel.ValorUnitario,
-            Temporario = true
+            ValorVenda = ViewModel.ValorUnitario
         });
 
         public ProdutoPedidoItem()
@@ -107,8 +106,12 @@ namespace DistribuidoraWandall.Windows.Pedido.Components
             {
                 //ValorUnitario.Text = SelectedProduct.ValorVenda.ToString();
                 ViewModel.ValorUnitario = ViewModel.SelectedItem.ValorVenda;
-                OnProductSelected?.Invoke(this, e);
             }
+        }
+
+        private void AddProduto_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            OnProductSelected?.Invoke(this, e);
         }
     }
 }

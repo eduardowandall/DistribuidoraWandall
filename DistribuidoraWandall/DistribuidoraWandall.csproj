@@ -72,9 +72,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Reports\PrintReport.cs" />
-    <Compile Include="Reports\ReportPedido.cs" />
-    <Compile Include="Reports\ReportProduto.cs" />
+    <Compile Include="DB\Promocao.cs" />
+    <Compile Include="Utils\KeysToCharMapper.cs" />
     <Compile Include="Windows\Pedido\PedidoWindow.xaml.cs">
       <DependentUpon>PedidoWindow.xaml</DependentUpon>
     </Compile>
@@ -101,7 +100,6 @@
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="DB\Cliente.cs" />
     <Compile Include="DB\DBEntities.cs" />
-    <Compile Include="DB\Endereco.cs" />
     <Compile Include="DB\Pedido.cs" />
     <Compile Include="DB\Produto.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -135,7 +133,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Pedidos.rdlc" />
     <None Include="ArquivoDeInformacoes.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -38,7 +38,6 @@ namespace DistribuidoraWandall.Windows.Pedido
             gridProdutos.RowDefinitions.Add(new RowDefinition());
             novoItem.OnProductSelected += MainWindow_Testezinho;
             gridProdutos.Children.Add(novoItem);
-            Grid.SetRow(novoItem, gridProdutos.RowDefinitions.Count - 1);
         }
 
         private void MainWindow_Testezinho(object sender, EventArgs data)

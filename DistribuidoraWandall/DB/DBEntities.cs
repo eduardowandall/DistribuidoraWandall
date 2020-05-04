@@ -22,7 +22,7 @@ namespace DistribuidoraWandall.DB
             var mapper = BsonMapper.Global;
             mapper.Entity<Pedido>()
                 .DbRef(x => x.Cliente, tb_cliente);
-            mapper.Entity<PedidoProduto>()
+            mapper.Entity<ProdutoPedido>()
                 .DbRef(x => x.Produto, tb_produto);
         }
     }

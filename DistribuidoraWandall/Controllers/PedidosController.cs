@@ -32,7 +32,6 @@ namespace DistribuidoraWandall.Controllers
                 {
                     DataPedido = pedidoDB.DataPedido.ToString("dd/MM/yyyy"),
                     NomeCliente = pedidoDB.Cliente.Nome,
-                    EnderecoCliente = pedidoDB.Cliente.Endereco?.ToString(),
                     Produtos = pedidoDB.Produtos.Select(x => new { x.Produto.Nome, x.Quantidade, x.ValorVendido, ValorTotal = x.Quantidade * x.ValorVendido }),
                     ValorTotal = pedidoDB.Produtos.Sum(x => x.ValorVendido * x.Quantidade)
                 };

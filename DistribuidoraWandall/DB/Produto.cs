@@ -7,6 +7,5 @@
         public double ValorCompra { get; set; }
         public double ValorVenda { get; set; }
         public bool Apagado { get; set; }
-        public bool Temporario { get; set; }
     }
 }

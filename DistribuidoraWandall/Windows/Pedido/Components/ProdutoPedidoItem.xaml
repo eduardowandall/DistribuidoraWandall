@@ -5,40 +5,75 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
              mc:Ignorable="d" 
-             Height="50" Width="500">
+             Height="70" Width="600" FontSize="20">
     <Grid x:Name="gridProdutos">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="15" />
-            <RowDefinition Height="23" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4.2*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="1.3*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0">Produto</TextBlock>
-        <TextBlock Grid.Row="0" Grid.Column="1">Qtde.</TextBlock>
-        <TextBlock Grid.Row="0" Grid.Column="2">Valor</TextBlock>
-        <TextBlock Grid.Row="0" Grid.Column="3">Total</TextBlock>
+        <TextBlock
+            Width="250" 
+            Height="30"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            >Produto</TextBlock>
         <dotNetKitControls:AutoCompleteComboBox
-                x:Name="Produto"
-                SelectedValuePath="Id"
-                TextSearch.TextPath="Nome"
-                DisplayMemberPath="Nome"
-                ItemsSource="{Binding Items}"
-                SelectedItem="{Binding SelectedItem}"
-                Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center">
+            x:Name="Produto"
+            SelectedValuePath="Id"
+            TextSearch.TextPath="Nome"
+            DisplayMemberPath="Nome"
+            ItemsSource="{Binding Items}"
+            SelectedItem="{Binding SelectedItem}"
+            VerticalContentAlignment="Center"
+            Width="250" 
+            Height="40"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left">
         </dotNetKitControls:AutoCompleteComboBox>
-        <TextBox x:Name="Quantidade" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" Text="{Binding Quantidade}"></TextBox>
-        <TextBox x:Name="ValorUnitario" Grid.Column="2" Grid.Row="1" VerticalContentAlignment="Center" Text="{Binding ValorUnitario}"></TextBox>
-        <Grid Grid.Row="1" Grid.Column="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.3*" />
-                <ColumnDefinition Width="4*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0">R$</TextBlock>
-            <TextBlock x:Name="ValorTotal" Grid.Column="1" TextAlignment="Right" Text="{Binding Total, Mode=OneWay}"></TextBlock>
-        </Grid>
+
+        <TextBlock
+            Width="80" 
+            Height="30"
+            Margin="250,0,0,0"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            >Qtde.</TextBlock>
+        <TextBox x:Name="Quantidade"
+            Width="80" 
+            Height="40"
+            Margin="250,0,0,0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            VerticalContentAlignment="Center" Text="{Binding Quantidade}"></TextBox>
+
+        <TextBlock
+            Width="80" 
+            Height="30"
+            Margin="330,0,0,0"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            >Valor</TextBlock>
+        <TextBox x:Name="ValorUnitario" 
+            Width="80" 
+            Height="40"
+            Margin="330,0,0,0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            VerticalContentAlignment="Center" Text="{Binding ValorUnitario}"></TextBox>
+
+        <TextBlock
+            Width="70" 
+            Height="30"
+            Margin="410,0,0,0"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            >Total</TextBlock>
+        <TextBlock x:Name="ValorTotal" 
+            Width="70" 
+            Height="40"
+            Margin="410,0,0,0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            TextAlignment="Right" Text="{Binding Total, Mode=OneWay}"></TextBlock>
+        
+        <Button x:Name="AddProduto" VerticalContentAlignment="Center" Click="AddProduto_Click" Width="120" HorizontalAlignment="Right" FontSize="16">
+            <TextBlock TextWrapping="Wrap">ADICIONAR PRODUTO</TextBlock>
+        </Button>
     </Grid>
 </UserControl>

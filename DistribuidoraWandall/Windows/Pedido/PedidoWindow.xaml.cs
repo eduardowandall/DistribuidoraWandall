@@ -1,9 +1,8 @@
 ﻿using DistribuidoraWandall.Controllers;
 using DistribuidoraWandall.DB;
-using DistribuidoraWandall.Reports;
-using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -19,58 +18,48 @@ namespace DistribuidoraWandall.Windows.Pedido
     /// </summary>
     public partial class PedidoWindow : UserControl
     {
-        sealed class ClienteViewModel : INotifyPropertyChanged
-        {
-            #region INotifyPropertyChanged
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            void SetField<X>(ref X field, X value, [CallerMemberName] string propertyName = null)
-            {
-                if (EqualityComparer<X>.Default.Equals(field, value)) return;
-
-                field = value;
-
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-            #endregion
-
-            public IReadOnlyList<Cliente> Items
-            {
-                get { return ClientesController.Instance.Buscar(); }
-            }
-
-            Cliente selectedItem;
-            public Cliente SelectedItem
-            {
-                get { return selectedItem; }
-                set { SetField(ref selectedItem, value); }
-            }
-
-            double quantidade = 1;
-            public double Quantidade
-            {
-                get { return quantidade; }
-                set { SetField(ref quantidade, value); }
-            }
-            double valorUnitario;
-            public double ValorUnitario
-            {
-                get { return valorUnitario; }
-                set { SetField(ref valorUnitario, value); }
-            }
-
-            public double Total => ValorUnitario * Quantidade;
-        }
-
-        private ClienteViewModel ViewModel { get; set; }
-        public Cliente SelectedCostumer => ViewModel.SelectedItem;
-
+        public static List<ProdutoPedido> ProdutosDoPedido { get; set; }
 
         public PedidoWindow()
         {
             InitializeComponent();
-            ViewModel = new ClienteViewModel();
-            Cliente.DataContext = ViewModel;
+
+            ProdutosDoPedido = new List<ProdutoPedido>{
+                new ProdutoPedido()
+                {
+                    Produto = ProdutosController.Instance.Buscar().FirstOrDefault(),
+                    Quantidade = 3,
+                    ValorVendido = 43
+                },
+                new ProdutoPedido()
+                {
+                    Produto = ProdutosController.Instance.Buscar().FirstOrDefault(),
+                    Quantidade = 3,
+                    ValorVendido = 43
+                },
+                new ProdutoPedido()
+                {
+                    Produto = ProdutosController.Instance.Buscar().FirstOrDefault(),
+                    Quantidade = 3,
+                    ValorVendido = 43
+
+                },
+            };
+
+            AddProduto.OnProductSelected += AddProduto_OnProductSelected;
+
+            this.gridProdutos.ItemsSource = ProdutosDoPedido;
+        }
+
+        private void AddProduto_OnProductSelected(object sender, EventArgs e)
+        {
+            var produtoExistente = ProdutosDoPedido.FirstOrDefault(x => x.Produto.Id == AddProduto.SelectedOrderProduct.Produto.Id);
+            if (produtoExistente != null)
+                produtoExistente.Quantidade += 1;
+            else
+                ProdutosDoPedido.Add(AddProduto.SelectedOrderProduct);
+
+            gridProdutos.Items.Refresh();
         }
 
         private void Salvar_Click(object sender, RoutedEventArgs e)
@@ -81,46 +70,65 @@ namespace DistribuidoraWandall.Windows.Pedido
         private void Imprimir_Click(object sender, RoutedEventArgs e)
         {
             var pedido = SalvarPedido();
-            var report = new LocalReport();
-            report.ReportEmbeddedResource = "DistribuidoraWandall.Reports.Pedidos.rdlc";
-
-            report.DataSources.Add(new ReportDataSource("Produtos", pedido.Produtos.Select(x => new ReportProduto()
-            {
-                Nome = x.Produto.Nome,
-                Quantidade = x.Quantidade,
-                ValorUnitario = x.ValorVendido
-            })));
-            report.PrintToPrinter();
-        }
-
-        private string ReadEmbeddedResource(string ResourceName)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream(ResourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string result = reader.ReadToEnd();
-                string temp = result.Replace('\r', ' ');
-                return temp;
-            }
         }
 
         private DB.Pedido SalvarPedido()
         {
-            var produtos = ListaProdutos.Produtos.Select(x => x.SelectedOrderProduct);
-            produtos.Where(x => x.Produto.Temporario).ToList().ForEach((x) =>
-            {
-                ProdutosController.Instance.Salvar(x.Produto);
-            });
             var pedido = new DB.Pedido()
             {
-                Cliente = SelectedCostumer,
                 DataPedido = DateTime.Now,
-                Produtos = produtos.ToList()
+                Produtos = ProdutosDoPedido
             };
             PedidosController.Instance.Salvar(pedido);
             return pedido;
         }
+        string barCode = "";
+        private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+                e.Handled = true;
 
+            if (Utils.KeysUtils.IsKeyNumber(e.Key))
+                barCode += Utils.KeysUtils.KeyToNumber(e.Key);
+
+            if (barCode.Length == 13)
+            {
+                var foundItem = ProdutosController.Instance.Buscar(barCode);
+                barCode = string.Empty;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var idProduto = (int)((Button)e.OriginalSource).CommandParameter;
+
+            var produtoExistente = ProdutosDoPedido.FirstOrDefault(x => x.Produto.Id == idProduto);
+
+            ProdutosDoPedido.Remove(produtoExistente);
+
+            gridProdutos.Items.Refresh();
+        }
+
+        private void GridProdutos_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            //gridProdutos.Items.Refresh();
+        }
+        private static bool cellHasEdited;
+        private void GridProdutos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cellHasEdited)
+            {
+                //gridProdutos.Items.Refresh();
+
+                cellHasEdited = false;
+            }
+
+        }
+
+        private void GridProdutos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            
+            cellHasEdited = true;
+        }
     }
 }
